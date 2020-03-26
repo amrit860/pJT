@@ -10,7 +10,7 @@ const defaultForm = {
     username: '',
     password: '',
     gender: '',
-    dob: '',
+    DOB: '',
     address: ''
 }
 export  class RegisterComponent extends Component {
@@ -158,7 +158,7 @@ export  class RegisterComponent extends Component {
                     <input type="radio" name="gender" value="others" onChange={this.handleChange}></input> Others
                     <br />
                     <label>Date Of Birth</label>
-                    <input type="date" name="dob" className="form-control" onChange={this.handleChange}></input>
+                    <input type="date" name="DOB" className="form-control" onChange={this.handleChange}></input>
                     <br></br>
                     {btn}
                 </form>

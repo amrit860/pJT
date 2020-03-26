@@ -5,6 +5,7 @@ import { RegisterComponent } from "./component/auth /register/register.component
 import { Header } from "./component/common/header/header.component";
 import { notFound } from "./component/common/pag/notfound/notfound";
 import { DashbardComponent } from "./component/user/dashBoard/dashboard";
+import { Sidebar} from "./component/common/sidebar/sidebar";
 
 const About=()=>{
     return<p>About Component</p>
@@ -24,6 +25,8 @@ const AppRoutes=()=>{
         <Router>
             
             <Header isLoggedIn={true}></Header>
+            <Sidebar></Sidebar>
+            <div className="main">
             <Switch>
             <Route exact path="/" component={LoginComponent}></Route>
             <Route path="/register" component={RegisterComponent}></Route>
@@ -33,6 +36,8 @@ const AppRoutes=()=>{
             <Route path="/dashboard" component={DashbardComponent}></Route>
             <Route component={notFound}></Route>   
             </Switch>
+            </div>
+          
           
         </Router>
     )

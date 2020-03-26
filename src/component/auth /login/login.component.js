@@ -101,8 +101,11 @@ componentWillUnmount(){
         responseType:"json"
          }
       )
-      .then(data=>{
-        console.log("success in axios call>>",data)
+      .then(response=>{
+        console.log("success in axios call>>",response);
+        localStorage.setItem("token",response.data.token);
+        localStorage.setItem("user",JSON.stringify(response.data.user));
+        this.props.history.push("/dashboard");
       })
       .catch(err=>{
         console.log("error in axios call>>",err.response)
@@ -150,7 +153,7 @@ componentWillUnmount(){
           <label htmlFor="password">password:</label> <br></br>
           <input
             className="form-control"
-            type="text"
+            type="password"
             placeholder="password"
             name="password"
             onChange={this.handleChange}
