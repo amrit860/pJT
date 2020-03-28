@@ -1,84 +1,74 @@
 import React from "react";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
+import notification from "./../../../utils/notification";
 
 export class LoginComponent extends React.Component {
   constructor() {
     super();
     this.state = {
-  data:{
+      data: {
 
-  },
-  error:{
+      },
+      error: {
 
-  },
+      },
       issubmitting: false,
       isValiditing: false,
       remember_me: false
     };
-  } 
-  componentDidMount(){
-    if(localStorage.getItem("remember_me")){
-      this.props.history.push("/dashboard/abcd");
-    }
-
   }
-componentDidUpdate(previousProps,previousState){
-      
-}
-componentWillUnmount(){
-    clearInterval(this.interval);
-}
-  
+  //   
+
   handleChange = e => {
     let { type, name, value, checked } = e.target;
     if (type === "checkbox") {
       value = checked;
       this.rememberMe(value);
     }
-    this.setState((preState)=>({
-      data:{
+    this.setState((preState) => ({
+      data: {
         ...preState.data,
-        [name]:value
+        [name]: value
       }
-            
-    }),()=>{
+
+    }), () => {
       this.validateForm(name);
 
     })
 
   };
-  rememberMe(val){
-    console.log("value>>",val);
-    localStorage.setItem("remember_me",val);
+  rememberMe(val) {
+    console.log("value>>", val);
+    localStorage.setItem("remember_me", val);
 
   }
-  validateForm(fieldName){
+  validateForm(fieldName) {
     let errmsg;
-    switch(fieldName){
+    switch (fieldName) {
       case "username":
-        errmsg=this.state[fieldName]
-        ?""
-        :"username is required "
+        errmsg = this.state[fieldName]
+          ? ""
+          : "username is required "
 
-       
-        case "password":
-          errmsg=this.state[fieldName]
-          ?""
-          :"password is required"
-      break;
-        default:
-          break;
+
+      case "password":
+        errmsg = this.state[fieldName]
+          ? ""
+          : "password is required"
+        break;
+      default:
+        break;
     }
-    this.setState((prevState)=>({
-      error:{
+    this.setState((prevState) => ({
+      error: {
         ...prevState.error,
-        [fieldName]:errmsg
+        [fieldName]: errmsg
       }
 
     }))
   }
- 
+
   handleSubmit = e => {
     e.preventDefault();
     this.setState({
@@ -90,45 +80,47 @@ componentWillUnmount(){
     //   });
     //   this.props.history.push("/dashboard/amrit");
     // }, 2000);
-      axios.post(
-        
-        "http://localhost:2020/api/auth/login",
-        this.state.data,{
-        headers: {
-          "Content-Type":"application/json",
-        },
-        params:{},
-        responseType:"json"
-         }
-      )
-      .then(response=>{
-        console.log("success in axios call>>",response);
-        localStorage.setItem("token",response.data.token);
-        localStorage.setItem("user",JSON.stringify(response.data.user));
+    axios.post(
+
+      "http://localhost:2020/api/auth/login",
+      this.state.data, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      params: {},
+      responseType: "json"
+    }
+    )
+      .then(response => {
+        notification.showSuccess(`welcome ${response.data.username}`)
+        console.log("success in axios call>>", response);
+        localStorage.setItem("token", response.data.token);
+        localStorage.setItem("user", JSON.stringify(response.data.user));
         this.props.history.push("/dashboard");
       })
-      .catch(err=>{
-        console.log("error in axios call>>",err.response)
+      .catch(err => {
+        notification.handleError(err);
+        console.log("error in axios call>>", err.response)
       })
-      .finally(()=>{
+      .finally(() => {
         this.setState({
-          isSubmitting:false
+          isSubmitting: false
         })
       })
   };
-  
+
 
   render() {
-    let btn = this.state.isSubmitting 
-    ? 
+    let btn = this.state.isSubmitting
+      ?
       <button disabled={true} className="btn btn-info">
         Logging in
       </button>
-    : 
-        <button className="btn btn-primary" type="submit">
-          login
+      :
+      <button className="btn btn-primary" type="submit">
+        login
         </button>
-      
+
 
     return (
       <div className="container">
@@ -158,7 +150,7 @@ componentWillUnmount(){
             name="password"
             onChange={this.handleChange}
           ></input>
-                    <p className="danger">{this.state.passwordErr}</p>
+          <p className="danger">{this.state.passwordErr}</p>
 
           <br></br>
           <input

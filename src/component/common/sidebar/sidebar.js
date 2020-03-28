@@ -3,11 +3,14 @@ import { Link } from "react-router-dom";
 import "./sidebar.component.css";
 export const Sidebar =(props)=>{
     return(
-        <div className="overlay-content">
+        <div className="sidenav">
 
-    <Link to="/services">Add Product</Link>
-    <Link to="/clients">Edit product</Link>
-    <Link to="/contacts">Delete Product</Link>
+      <Link to="/home">Home</Link>
+    <Link to="/Add Product">Add Product</Link>
+    <Link to="/View Product">view product</Link>
+    <Link to="/Search Product">Search Product</Link>
+    <Link to="/Edit Product">Edit Product</Link>
+
   </div>
     )
 }

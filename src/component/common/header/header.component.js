@@ -9,9 +9,10 @@ const logout  = ()=>{
 export const Header = function (props) {
     console.log('props >>>', props);
     let navBar = props.isLoggedIn
-        ? <ul className="nav_bar">
+        ?
+         <ul className="nav_bar">
             <li className="nav_item">
-                <Link to="/home">Home</Link>
+                <Link to="/dashboard">Home</Link>
             </li>
             <li className="nav_item">
                 <Link to="/about">About</Link>
@@ -22,7 +23,7 @@ export const Header = function (props) {
           
 
             <li className="nav_item float-right ">
-                <button className="btn btn-info" onClick={logout} > <Link to="/">Logout</Link></button>
+                <button className="btn btn-black" onClick={logout} > <Link to="/">Logout</Link></button>
                 {/* <Link to></Link> */}
                
             </li>
