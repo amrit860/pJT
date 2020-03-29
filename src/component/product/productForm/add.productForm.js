@@ -6,17 +6,17 @@ const defaultForm = {
     category: '',
     brand: '',
     description: '',
+    price:'',
     color: '',
     tags: '',
     manuDate: '',
     expiryDate: '',
     image: '',
     discountedItem: '',
-    discountTpye: '',
+    discountType: '',
     discount: '',
     warrantyItem: '',
-    warrantyPeriod: '',
-    category: ''
+    warrantyPeriod: ''
 }
 
 export default class AddProductForm extends Component {
@@ -116,7 +116,7 @@ export default class AddProductForm extends Component {
             ?
             <>
                 <label>Discount Type</label>
-                <input className="form-control" type="text" value={this.state.data.discountTpye} placeholder="DiscountType" name="discountType" onChange={this.handleChange}></input>
+                <input className="form-control" type="text" value={this.state.data.discountType} placeholder="DiscountType" name="discountType" onChange={this.handleChange}></input>
                 <label>Discount</label>
                 <input className="form-control" type="text" value={this.state.data.discount} placeholder="Discount" name="discount" onChange={this.handleChange}></input>
             </>

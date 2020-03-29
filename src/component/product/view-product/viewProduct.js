@@ -10,7 +10,12 @@ export default class viewProductComponent extends Component {
     }
 
     componentDidMount() {
-        axios.get("/product", {}, true)
+        axios.get("http://localhost:2020/api/product", {
+            headers:{
+                'Content-Type':'application/json',
+                'Authorization':localStorage.getItem('token')
+            }
+        }, true)
             .then((response) => {
                 this.setState({
                     product: response.data
@@ -18,11 +23,11 @@ export default class viewProductComponent extends Component {
 
             })
             .catch(err => {
-
+                console.log(err.response)
             })
     }
     editProduct = (id) => {
-
+        this.props.history.push('/edit product/'+id)
     }
     deleteProduct = (id, index) => {
 
@@ -32,15 +37,15 @@ export default class viewProductComponent extends Component {
 
     render() {
         let tableContent = (this.state.product || []).map((item, index) => (
-            <tr>
+            <tr key={item._id}>
                 <td>{index + 1}</td>
                 <td>{item.name}</td>
                 <td>{item.category}</td>
                 <td>{item.price}</td>
                 <td>{item.createdAt}</td>
                 <td>
-                    <button onClick={() => this.state.editProduct(item._id)} className="btn btn-info">edit</button>
-                    <button onClick={() => this.state.deleteProduct(item._id, index)} className="btn btn-danger">delete</button>
+                    <button onClick={this.editProduct.bind(this,item._id)} style={{marginRight:'20px'}} className="btn btn-info">Edit <i className="fas fa-edit"></i></button>
+                    <button onClick={() => this.state.deleteProduct(item._id, index)} className="btn btn-danger">Delete <i class="fa fa-trash" ></i></button>
                 </td>
             </tr>
         ));

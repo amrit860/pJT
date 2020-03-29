@@ -131,7 +131,7 @@ export  class RegisterComponent extends Component {
             :
              <button className="btn btn-success" disabled={!this.state.isValidForm} type="submit">Submit</button>
         return (
-            <div>
+            <div className="container" style={{marginTop:'40px'}}>
                 <h2>Register</h2>
                 <p>Please register here</p>
                 <form className="form-group" onSubmit={this.handleSubmit}>
