@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import notification from "./../../../utils/notification";
+import './login.component.css';
 
 export class LoginComponent extends React.Component {
   constructor() {
@@ -51,7 +52,7 @@ export class LoginComponent extends React.Component {
           ? ""
           : "username is required "
 
-
+        break;
       case "password":
         errmsg = this.state[fieldName]
           ? ""
@@ -88,11 +89,11 @@ export class LoginComponent extends React.Component {
         "Content-Type": "application/json",
       },
       params: {},
-      responseType: "json"
+      responseType: "json"  
     }
     )
       .then(response => {
-        notification.showSuccess(`welcome ${response.data.username}`)
+        notification.showSuccess(`welcome ${response.data.user.username}`)
         console.log("success in axios call>>", response);
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("user", JSON.stringify(response.data.user));
@@ -123,7 +124,7 @@ export class LoginComponent extends React.Component {
 
 
     return (
-      <div className="container">
+      <div className="container login">
         <h2>
           <br></br>
           <b>Login</b>
