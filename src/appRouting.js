@@ -8,7 +8,8 @@ import { DashbardComponent } from "./component/user/dashBoard/dashboard";
 import { Sidebar} from "./component/common/sidebar/sidebar";
 import AddProductForm from "./component/product/productForm/add.productForm";
 // import SearchProductForm from "./component/product/productForm/edit.productForm";
-import EditProductForm from "./component/product/productForm/edit.productForm";
+// import EditProductForm from "./component/product/edit-product/edit.productForm";
+import viewProductComponent from "./component/product/view-product/viewProduct";
 
 const About=()=>{
     return<p>about Component</p>
@@ -40,12 +41,13 @@ const ProtectedRoute = ({ component: Component, ...props }) => (
 const PublicRoute = ({ component: Component, ...props }) => (
     <Route {...props} render={(props) => (
         <>
+          <div className="main">
+                <Component {...props}></Component>
+            </div>
             <div className="nav_bar">
                 <Header isLoggedIn={localStorage.getItem('token')}></Header>
             </div>
-            <div className="main">
-                <Component {...props}></Component>
-            </div>
+           
         </>
     )}></Route>
 )
@@ -64,15 +66,10 @@ const AppRoutes=()=>{
             <PublicRoute path="/home" component={Home}></PublicRoute>
             <PublicRoute path="/about" component={About}></PublicRoute>
             <PublicRoute path="/contact" component={Contact}></PublicRoute>
-
-
-
             <ProtectedRoute path="/Add Product" component={AddProductForm}></ProtectedRoute>
-            {/* <ProtectedRoute path="/View Product" component={ProductForm}></ProtectedRoute> */}
-            <ProtectedRoute path="/Edit Product" component={EditProductForm}></ProtectedRoute>
-
-
-            <ProtectedRoute path="/dashboard" component={DashbardComponent}></ProtectedRoute>
+            <ProtectedRoute path="/View Product" component={viewProductComponent}></ProtectedRoute>
+            {/* <ProtectedRoute path="/Edit Product" component={EditProductForm}></ProtectedRoute> */}
+              <ProtectedRoute path="/dashboard" component={DashbardComponent}></ProtectedRoute>
             <PublicRoute component={notFound}></PublicRoute>   
             </Switch>
             </div>

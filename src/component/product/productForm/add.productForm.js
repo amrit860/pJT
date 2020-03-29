@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import axios from 'axios';
-import { httpClient } from '../../../utils/httpclient';
+// import { httpClient } from '../../../utils/httpclient';
 const defaultForm = {
     name: '',
     category: '',
@@ -78,32 +78,38 @@ export default class AddProductForm extends Component {
         this.setState({
             isSubmitting:true
         });
-        httpClient.post('/product',
-        this.state.data)
-    //         headers:{
-    //         "content-Type":"application/json",
-    //     },
-    //     params:{},
-    //     responseType:"json"
-    // }
-    // )
+        // httpClient.post('/product',
+        axios.post
+        ("http://localhost:2020/api/product",
+        this.state.data,{
+            headers:{
+            "content-Type":"application/json",
+            'Authorization':localStorage.getItem('token')
+             
+        },
+        params:{},
+        responseType:"json"
+    }
+    )
 
   .then(response => {
         // notify.showSuccess('welcome ${response.data.username}')
         console.log("success in axios call>>", response);
         // localStorage.setItem("token", response.data.token);
         // localStorage.setItem("user", JSON.stringify(response.data.product));
-        this.props.history.push("/View product");
+        this.props.history.push("/View Product");
       })
       .catch(err => {
         console.log("error in axios call>>", err.response)
-      })
-      .finally(() => {
         this.setState({
-          isSubmitting: false
-        })
+            isSubmitting: false
       })
-  };
+    //   .finally(() => {
+    //     this.setState({
+    //       isSubmitting: false
+    //     })
+      })
+    }
 
     render() {
         let discountContent = this.state.data.discountedItem
@@ -125,8 +131,8 @@ export default class AddProductForm extends Component {
             : "";
 
         let btn = this.state.isSubmitting
-            ? <botton disabled={true} className="btn btn-info">submitting</botton>
-            : <botton disabled={!this.state.isValidForm} type="submit" className="btn btn-primary">submit</botton>
+            ? <button disabled={true} className="btn btn-info">submitting</button>
+            : <button disabled={!this.state.isValidForm} type="submit" className="btn btn-primary">submit</button>
         return (
             <>
                 <h2>Add Product </h2>
