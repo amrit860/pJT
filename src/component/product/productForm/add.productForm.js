@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import notification from '../../../utils/notification';
 // import { httpClient } from '../../../utils/httpclient';
 const defaultForm = {
     name: '',
@@ -12,7 +13,7 @@ const defaultForm = {
     manuDate: '',
     expiryDate: '',
     image: '',
-    discountedItem: '',
+    discountedItem: false,
     discountType: '',
     discount: '',
     warrantyItem: '',
@@ -95,6 +96,7 @@ export default class AddProductForm extends Component {
   .then(response => {
         // notify.showSuccess('welcome ${response.data.username}')
         console.log("success in axios call>>", response);
+        notification.showInfo("Product added Successfully");
         // localStorage.setItem("token", response.data.token);
         // localStorage.setItem("user", JSON.stringify(response.data.product));
         this.props.history.push("/View Product");

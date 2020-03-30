@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import notification from '../../../utils/notification';
 
 export default class viewProductComponent extends Component {
     constructor(props) {
@@ -15,7 +16,7 @@ export default class viewProductComponent extends Component {
                 'Content-Type':'application/json',
                 'Authorization':localStorage.getItem('token')
             }
-        }, true)
+        })
             .then((response) => {
                 this.setState({
                     product: response.data
@@ -30,7 +31,21 @@ export default class viewProductComponent extends Component {
         this.props.history.push('/edit product/'+id)
     }
     deleteProduct = (id, index) => {
-
+        const {product} = this.state;
+        axios.delete(`http://localhost:2020/api/product/${id}`,{
+            headers:{
+                'Content-Type':'application/json',
+                'Authorization':localStorage.getItem('token')
+            }
+        }).then((res)=>{
+            notification.showInfo('Product Deleted Successfully')
+            product.splice(index,1);
+            this.setState({
+                product
+            })
+        }).catch(err=>{
+            notification.handleError(err)
+        })
     }
 
 
@@ -45,7 +60,7 @@ export default class viewProductComponent extends Component {
                 <td>{item.createdAt}</td>
                 <td>
                     <button onClick={this.editProduct.bind(this,item._id)} style={{marginRight:'20px'}} className="btn btn-info">Edit <i className="fas fa-edit"></i></button>
-                    <button onClick={() => this.state.deleteProduct(item._id, index)} className="btn btn-danger">Delete <i class="fa fa-trash" ></i></button>
+                    <button onClick={() => this.deleteProduct(item._id, index)} className="btn btn-danger">Delete <i className="fa fa-trash" ></i></button>
                 </td>
             </tr>
         ));

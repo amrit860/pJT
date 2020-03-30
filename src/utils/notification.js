@@ -1,4 +1,4 @@
-import {toast} from "react-toastify";
+import toast from 'cogo-toast';
 
 function showSuccess(msg){
  toast.success(msg);   
