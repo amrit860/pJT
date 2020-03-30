@@ -15,8 +15,8 @@ import viewProductComponent from "./component/product/view-product/viewProduct";
 const fullWidth = {
     width: '100%'
 }
-const marginTop={
-    marginTop:'40px'
+const marginTop = {
+    marginTop: '40px'
 }
 
 const About = () => {
@@ -30,21 +30,21 @@ const Home = () => {
     return <p>home Component</p>
 }
 
-let isActive=true;
-const setActive=()=>{
-    isActive= !isActive;
+let isActive = true;
+const setActive = () => {
+    isActive = !isActive;
 }
 
 const ProtectedRoute = ({ component: Component, ...props }) => (
     <Route {...props} render={(props) => (
         localStorage.getItem('token')
             ? <>
-                <Sidebar openSidebar = {isActive}></Sidebar>
+                <Sidebar openSidebar={isActive}></Sidebar>
                 <div style={fullWidth} id="content">
                     <Header onClickNavBar={setActive} isLoggedIn={true}></Header>
-                   <div style ={marginTop} className="container ">
-                   <Component {...props}></Component>
-                   </div>
+                    <div style={marginTop} className="container ">
+                        <Component {...props}></Component>
+                    </div>
                 </div>
             </>
             : <Redirect to="/"></Redirect> // TODO redirect in better way
@@ -65,38 +65,31 @@ const PublicRoute = ({ component: Component, ...props }) => (
     )}></Route>
 )
 
-class AppRoutes extends React.Component {
-    
-    constructor(props){
-        super(props)
-    }
-   
+const AppRoutes = () => {
+    return (
+        <Router>
 
-    render(){
-        return (
-            <Router>
-    
-                {/* <Header isLoggedIn={localStorage.getItem("token") ? true :false}></Header>
+            {/* <Header isLoggedIn={localStorage.getItem("token") ? true :false}></Header>
                 <Sidebar></Sidebar> */}
-                <>
-                    <Switch>
-                        <PublicRoute exact path="/" component={LoginComponent}></PublicRoute>
-                        <PublicRoute path="/register" component={RegisterComponent}></PublicRoute>
-                        <PublicRoute path="/home" component={Home}></PublicRoute>
-                        <ProtectedRoute path="/about" component={About}></ProtectedRoute>
-                        <ProtectedRoute path="/contact" component={Contact}></ProtectedRoute>
-                        <ProtectedRoute path="/Add Product" component={AddProductForm}></ProtectedRoute>
-                        <ProtectedRoute path="/View Product" component={viewProductComponent}></ProtectedRoute>
-                        <ProtectedRoute path="/Edit Product/:id" component={EditProductForm}></ProtectedRoute>
-                        <ProtectedRoute path="/dashboard" component={DashbardComponent}></ProtectedRoute>
-                        <ProtectedRoute component={notFound}></ProtectedRoute>
-                    </Switch>
-                </>
-    
-    
-            </Router>
-        )
-    }
+            <>
+                <Switch>
+                    <PublicRoute exact path="/" component={LoginComponent}></PublicRoute>
+                    <PublicRoute path="/register" component={RegisterComponent}></PublicRoute>
+                    <PublicRoute path="/home" component={Home}></PublicRoute>
+                    <ProtectedRoute path="/about" component={About}></ProtectedRoute>
+                    <ProtectedRoute path="/contact" component={Contact}></ProtectedRoute>
+                    <ProtectedRoute path="/Add Product" component={AddProductForm}></ProtectedRoute>
+                    <ProtectedRoute path="/View Product" component={viewProductComponent}></ProtectedRoute>
+                    <ProtectedRoute path="/Edit Product/:id" component={EditProductForm}></ProtectedRoute>
+                    <ProtectedRoute path="/dashboard" component={DashbardComponent}></ProtectedRoute>
+                    <ProtectedRoute component={notFound}></ProtectedRoute>
+                </Switch>
+            </>
 
+
+        </Router>
+    )
 }
+
+
 export default AppRoutes;
